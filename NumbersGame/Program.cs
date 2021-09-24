@@ -20,6 +20,7 @@ namespace NumbersGame
                 int minNumberGuess = 1;
                 int maxNumberGuess = 0;
                 bool error = false;
+                string replay;
 
                 if (continueGame == true)
                 {
@@ -48,12 +49,6 @@ namespace NumbersGame
                     Console.WriteLine(ex.Message);
                     throw;
                 }
-
-                //int guessesLeft = 0;
-                //int totalGuesses = 0;
-                //bool guessedRight = false;
-                //int minNumberGuess = 1;
-                //int maxNumberGuess = 0;
 
                 Random random = new Random();
                 int number = 0;
@@ -110,13 +105,6 @@ namespace NumbersGame
                         break;
                 }
 
-                //Random random = new Random();
-                //int number = random.Next(1, 20);
-
-                //int guessesLeft = 5;
-                //bool guessedRight = false;
-
-
                 if (continueGame == true)
                 {
                     while (guessesLeft > 0 && guessedRight != true)
@@ -129,23 +117,34 @@ namespace NumbersGame
                         Console.WriteLine($"Tyvärr du lyckades inte gissa talet på {totalGuesses} försök!");
                     }
 
+                    // Starta om spel?
                     Console.WriteLine("\nVill du spela igen? Svara Ja/Nej");
-                    string replay = Console.ReadLine().ToUpper();
 
-                    if (replay == "NEJ" /*|| continueGame == false*/)
+                    try
+                    {
+                        replay = Console.ReadLine().ToUpper();
+
+                        while (replay != "JA" && replay != "NEJ")
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Du svarade inte Ja/Nej.");
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                            replay = Console.ReadLine().ToUpper();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        throw;
+                    }
+
+                    if (replay == "NEJ")
                     {
                         Console.WriteLine("Tack för att du spelade!");
                         runGame = false;
                     }
                     else if (replay == "JA")
                     {
-                        Console.Clear();
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Du svarade inte Ja/Nej och spelet börjar om.");
-                        Console.ForegroundColor = ConsoleColor.Gray;
                         Console.Clear();
                     }
                 }
@@ -159,11 +158,9 @@ namespace NumbersGame
 
             try
             {
-                //userGuess = Int32.Parse(Console.ReadLine());
                 do
                 {
                     noError = Int32.TryParse(Console.ReadLine(), out userGuess); 
-                    //error = false;
 
                     if (noError == false)
                     {
@@ -174,16 +171,12 @@ namespace NumbersGame
                     }
                                         
                 } while (noError == false);
-                //Console.ForegroundColor = ConsoleColor.Gray;
-                //userGuess = Int32.Parse(Console.ReadLine());
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 throw;
             }
-
-            //error = true;
 
             Random random = new Random();
             int answer = random.Next(0, 4);
@@ -199,17 +192,18 @@ namespace NumbersGame
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"Du gissade inte inom {minNumberGuess}-{maxNumberGuess}.");
+                Console.ForegroundColor = ConsoleColor.Gray;
             }
             else if (userGuess < number && noError == true)
             {
                 string[] outputGuessedTooLow = { "Tyvärr du gissade för lågt!", "Talet är högre!", "Det var för lågt!", "Gissa högre!", "Inte riktigt, talet är högre!" };
                 Console.WriteLine(outputGuessedTooLow[answer]);
 
-                if (userGuess >= number - 2 && isGuessRight == true)
+                if (userGuess >= number - 2 && isGuessRight == false)
                 {
                     Console.WriteLine("Det bränns!");
                 }
-                else if (userGuess < number - (maxNumberGuess / 2) && isGuessRight == true) // TODO FIXA
+                else if (userGuess < number - (maxNumberGuess / 2) && isGuessRight == false)
                 {
                     Console.WriteLine("Oj, det var långt ifrån!");
                 }
@@ -225,7 +219,7 @@ namespace NumbersGame
                 {
                     Console.WriteLine("Det bränns!");
                 }
-                else if (userGuess > number + (maxNumberGuess / 2) && isGuessRight == false) // TODO FIXA
+                else if (userGuess > number + (maxNumberGuess / 2) && isGuessRight == false)
                 {
                     Console.WriteLine("Oj, det var långt ifrån!");
                 }
