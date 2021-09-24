@@ -53,7 +53,7 @@ namespace NumbersGame
                 Random random = new Random();
                 int number = 0;
 
-                switch (difficulty)
+                switch (difficulty) // Choose difficulty
                 {
                     case 1:
                         number = random.Next(1, 5);
@@ -107,7 +107,7 @@ namespace NumbersGame
 
                 if (continueGame == true)
                 {
-                    while (guessesLeft > 0 && guessedRight != true)
+                    while (guessesLeft > 0 && guessedRight != true) // Guess + control
                     {
                         Program.CheckGuess(guessesLeft, number, guessedRight, maxNumberGuess, minNumberGuess, out guessesLeft, out guessedRight);
                     }
@@ -117,7 +117,7 @@ namespace NumbersGame
                         Console.WriteLine($"Tyvärr du lyckades inte gissa talet på {totalGuesses} försök!");
                     }
 
-                    // Starta om spel?
+                    // Restart game?
                     Console.WriteLine("\nVill du spela igen? Svara Ja/Nej");
 
                     try
@@ -160,7 +160,7 @@ namespace NumbersGame
             {
                 do
                 {
-                    noError = Int32.TryParse(Console.ReadLine(), out userGuess); 
+                    noError = Int32.TryParse(Console.ReadLine(), out userGuess); // Guess
 
                     if (noError == false)
                     {
@@ -178,23 +178,23 @@ namespace NumbersGame
                 throw;
             }
 
-            Random random = new Random();
+            Random random = new Random(); // Random output
             int answer = random.Next(0, 4);
 
-            if (userGuess == number)
+            if (userGuess == number) // Correct guess
             {
                 string[] outputGuessedRight = { "Woho! Du gjorde det!", "Grattis du klarade det!", "Du gissade rätt!", "Det var rätt!", "Du lyckades!" };
                 Console.WriteLine(outputGuessedRight[answer]);
                 guessesLeft--;
                 isGuessRight = true;              
             }
-            else if (userGuess > maxNumberGuess || userGuess < minNumberGuess && noError == true)
+            else if (userGuess > maxNumberGuess || userGuess < minNumberGuess && noError == true) // Guess outside intervall
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"Du gissade inte inom {minNumberGuess}-{maxNumberGuess}.");
                 Console.ForegroundColor = ConsoleColor.Gray;
             }
-            else if (userGuess < number && noError == true)
+            else if (userGuess < number && noError == true) // Guess too low
             {
                 string[] outputGuessedTooLow = { "Tyvärr du gissade för lågt!", "Talet är högre!", "Det var för lågt!", "Gissa högre!", "Inte riktigt, talet är högre!" };
                 Console.WriteLine(outputGuessedTooLow[answer]);
@@ -210,7 +210,7 @@ namespace NumbersGame
 
                 guessesLeft--;
             }
-            else if (userGuess > number && noError == true)
+            else if (userGuess > number && noError == true) // Guess too high
             {
                 string[] outputGuessedTooHigh = { "Tyvärr du gissade för högt!", "Talet är lägre!", "Det var för högt!", "Gissa lägre!", "Inte riktigt, talet är lägre!" }; 
                 Console.WriteLine(outputGuessedTooHigh[answer]);
