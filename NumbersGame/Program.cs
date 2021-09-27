@@ -105,8 +105,6 @@ namespace NumbersGame
                         break;
                 }
 
-                Console.WriteLine(number); // ta bort
-
                 if (continueGame == true)
                 {
                     while (guessesLeft > 0 && guessedRight != true) // Guess + control
