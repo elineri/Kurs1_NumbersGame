@@ -22,12 +22,12 @@ namespace NumbersGame
                 bool error = false;
                 string replay;
 
-                if (continueGame == true)
+                if (continueGame == true) 
                 {
                     Console.WriteLine("Välkommen! Välj svårighetsgrad mellan 1-5.");
                 }
 
-                try
+                try // User input for difficulty
                 {
                     do
                     {
@@ -53,10 +53,10 @@ namespace NumbersGame
                 Random random = new Random();
                 int number = 0;
 
-                switch (difficulty) // Choose difficulty
+                switch (difficulty) // Difficulty
                 {
                     case 1:
-                        number = random.Next(1, 5);
+                        number = random.Next(1, 6);
                         guessesLeft = 4;
                         totalGuesses = 4;
                         maxNumberGuess = 5;
@@ -65,7 +65,7 @@ namespace NumbersGame
                         break;
 
                     case 2:
-                        number = random.Next(1, 10);
+                        number = random.Next(1, 11);
                         guessesLeft = 4;
                         totalGuesses = 4;
                         maxNumberGuess = 10;
@@ -74,7 +74,7 @@ namespace NumbersGame
                         break;
 
                     case 3:
-                        number = random.Next(1, 20);
+                        number = random.Next(1, 21);
                         guessesLeft = 5;
                         totalGuesses = 5;
                         maxNumberGuess = 20;
@@ -83,7 +83,7 @@ namespace NumbersGame
                         break;
 
                     case 4:
-                        number = random.Next(1, 25);
+                        number = random.Next(1, 26);
                         guessesLeft = 5;
                         totalGuesses = 5;
                         maxNumberGuess = 25;
@@ -92,7 +92,7 @@ namespace NumbersGame
                         break;
 
                     case 5:
-                        number = random.Next(1, 50);
+                        number = random.Next(1, 51);
                         guessesLeft = 6;
                         totalGuesses = 6;
                         maxNumberGuess = 50;
@@ -104,6 +104,8 @@ namespace NumbersGame
                         continueGame = false;
                         break;
                 }
+
+                Console.WriteLine(number); // ta bort
 
                 if (continueGame == true)
                 {
